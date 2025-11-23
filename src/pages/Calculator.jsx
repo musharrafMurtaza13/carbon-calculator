@@ -16,6 +16,7 @@ export default function Calculator() {
   const { loading, execute } = useApi(carbonService.calculateCarbon, null, false);
 
   const handleCalculate = async (formData) => {
+    debugger;
     setError(null);
     try {
       const data = await execute(formData);
