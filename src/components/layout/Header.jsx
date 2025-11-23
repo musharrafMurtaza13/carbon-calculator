@@ -24,26 +24,25 @@ export default function Header() {
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center space-x-2">
             <div className="bg-blue-700 text-white px-3 py-2 font-bold text-lg">
-              BLUE<br/>WATER
+              Carbon<br />Emissions
             </div>
             <span className={`text-sm ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>SHIPPING</span>
           </Link>
 
-          <nav className="hidden md:flex space-x-6 text-sm font-medium">
+          {/* <nav className="hidden md:flex space-x-6 text-sm font-medium">
             <a href="#" className={darkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-700 hover:text-blue-700'}>{t.solutions}</a>
             <a href="#" className={darkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-700 hover:text-blue-700'}>{t.contact}</a>
             <a href="#" className={darkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-700 hover:text-blue-700'}>{t.about}</a>
             <a href="#" className={darkMode ? 'text-gray-300 hover:text-blue-400' : 'text-gray-700 hover:text-blue-700'}>{t.news}</a>
-          </nav>
+          </nav> */}
 
           <div className="flex items-center space-x-4">
             {/* Language Dropdown */}
             <div className="relative">
               <button
                 onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-                className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition ${
-                  darkMode ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
+                className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition ${darkMode ? 'bg-gray-800 text-gray-300 hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
               >
                 <Globe size={18} />
                 <span className="text-sm font-medium">{currentLanguage.flag} {currentLanguage.name}</span>
@@ -54,9 +53,8 @@ export default function Header() {
 
               {/* Dropdown Menu */}
               {showLanguageMenu && (
-                <div className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg z-50 ${
-                  darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
-                }`}>
+                <div className={`absolute right-0 mt-2 w-48 rounded-lg shadow-lg z-50 ${darkMode ? 'bg-gray-800 border border-gray-700' : 'bg-white border border-gray-200'
+                  }`}>
                   {languages.map((lang) => (
                     <button
                       key={lang.code}
@@ -64,11 +62,10 @@ export default function Header() {
                         setLanguage(lang.code);
                         setShowLanguageMenu(false);
                       }}
-                      className={`w-full text-left px-4 py-3 flex items-center space-x-3 transition ${
-                        language === lang.code
-                          ? darkMode ? 'bg-gray-700 text-blue-400' : 'bg-blue-50 text-blue-700'
-                          : darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-50'
-                      } ${lang === languages[0] ? 'rounded-t-lg' : ''} ${lang === languages[languages.length - 1] ? 'rounded-b-lg' : ''}`}
+                      className={`w-full text-left px-4 py-3 flex items-center space-x-3 transition ${language === lang.code
+                        ? darkMode ? 'bg-gray-700 text-blue-400' : 'bg-blue-50 text-blue-700'
+                        : darkMode ? 'text-gray-300 hover:bg-gray-700' : 'text-gray-700 hover:bg-gray-50'
+                        } ${lang === languages[0] ? 'rounded-t-lg' : ''} ${lang === languages[languages.length - 1] ? 'rounded-b-lg' : ''}`}
                     >
                       <span className="text-xl">{lang.flag}</span>
                       <span className="text-sm font-medium">{lang.name}</span>
@@ -84,9 +81,8 @@ export default function Header() {
             {/* Dark Mode Toggle */}
             <button
               onClick={toggleDarkMode}
-              className={`p-2 rounded-lg transition ${
-                darkMode ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
+              className={`p-2 rounded-lg transition ${darkMode ? 'bg-gray-800 text-yellow-400 hover:bg-gray-700' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
             >
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>

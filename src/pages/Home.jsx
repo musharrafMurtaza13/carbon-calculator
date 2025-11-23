@@ -18,9 +18,9 @@ export default function Home() {
           <p className={`text-xl mb-8 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
             {t.calculatorDescription}
           </p>
-          <Button 
+          <Button
             onClick={() => navigate('/calculator')}
-            className="px-8 py-4 text-lg"
+            className="bg-blue-700 px-8 py-4 rounded-full text-lg text-white"
           >
             {t.calculate}
           </Button>

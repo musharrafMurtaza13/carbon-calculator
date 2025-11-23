@@ -8,7 +8,7 @@ import Checkbox from '@/components/common/Checkbox';
 import Button from '@/components/common/Button';
 import ErrorMessage from '@/components/common/ErrorMessage';
 import { validateField } from '@/utils/validation';
-
+import LocationAutocomplete from '@/components/common/LocationAutocomplete';
 export default function CarbonCalculatorForm({ onSubmit, loading = false }) {
   const { darkMode } = useTheme();
   const { t } = useLanguage();
@@ -225,13 +225,12 @@ export default function CarbonCalculatorForm({ onSubmit, loading = false }) {
             <button
               type="button"
               onClick={() => handleTransportMode('truck')}
-              className={`flex flex-col items-center justify-center w-16 h-16 rounded-lg border-2 transition ${
-                formData.transportMode === 'truck'
+              className={`flex flex-col items-center justify-center w-16 h-16 rounded-lg border-2 transition ${formData.transportMode === 'truck'
                   ? 'border-blue-700 bg-blue-700'
                   : darkMode
                     ? 'border-gray-600 bg-gray-700 hover:border-blue-400'
                     : 'border-gray-300 bg-white hover:border-blue-400'
-              }`}
+                }`}
             >
               <Truck size={28} className={formData.transportMode === 'truck' ? 'text-white' : darkMode ? 'text-gray-300' : 'text-gray-600'} />
             </button>
@@ -260,13 +259,12 @@ export default function CarbonCalculatorForm({ onSubmit, loading = false }) {
               key={id}
               type="button"
               onClick={() => handleTransportMode(id)}
-              className={`flex flex-col items-center justify-center w-16 h-16 rounded-lg border-2 transition ${
-                formData.transportMode === id
+              className={`flex flex-col items-center justify-center w-16 h-16 rounded-lg border-2 transition ${formData.transportMode === id
                   ? 'border-blue-600 bg-blue-50'
                   : darkMode
                     ? 'border-gray-600 bg-gray-700 hover:border-blue-400'
                     : 'border-gray-300 bg-white hover:border-blue-400'
-              }`}
+                }`}
             >
               <Icon size={28} className={formData.transportMode === id ? 'text-blue-600' : darkMode ? 'text-gray-300' : 'text-gray-600'} />
             </button>
@@ -284,37 +282,51 @@ export default function CarbonCalculatorForm({ onSubmit, loading = false }) {
       {/* Origin and Destination Section */}
       <div className={`rounded-lg p-6 ${darkMode ? 'bg-gray-800' : 'bg-gray-100'}`}>
         <div className="space-y-4">
-          <div className="flex items-start gap-3">
-            <MapPin className="text-blue-600 flex-shrink-0 mt-3" size={20} />
-            <Input
-              type="text"
-              name="origin"
-              value={formData.origin}
-              onChange={handleChange}
-              onBlur={() => handleBlur('origin')}
-              error={showValidation ? errors.origin : ''}
-              touched={touched.origin && showValidation}
-              darkMode={darkMode}
-              placeholder={t.origin}
-              required
-            />
-          </div>
+          <LocationAutocomplete
+            label="Origin Location"
+            placeholder="Search origin city..."
+            value={formData.origin}
+            onChange={(val) => {
+              setFormData(prev => ({ ...prev, origin: val }));
+              if (errors.origin && showValidation) {
+                setErrors(prev => ({ ...prev, origin: '' }));
+              }
+            }}
+            onSelect={(location) => {
+              console.log('Selected origin:', location);
+              setFormData(prev => ({
+                ...prev,
+                origin: `${location.name}, ${location.country}`,
+                originCoords: { lat: location.latitude, lng: location.longitude }
+              }));
+            }}
+            error={showValidation ? errors.origin : ''}
+            touched={touched.origin && showValidation}
+            required
+          />
 
-          <div className="flex items-start gap-3">
-            <MapPin className="text-blue-600 flex-shrink-0 mt-3" size={20} />
-            <Input
-              type="text"
-              name="destination"
-              value={formData.destination}
-              onChange={handleChange}
-              onBlur={() => handleBlur('destination')}
-              error={showValidation ? errors.destination : ''}
-              touched={touched.destination && showValidation}
-              darkMode={darkMode}
-              placeholder={t.destination}
-              required
-            />
-          </div>
+          <LocationAutocomplete
+            label="Destination Location"
+            placeholder="Search destination city..."
+            value={formData.destination}
+            onChange={(val) => {
+              setFormData(prev => ({ ...prev, destination: val }));
+              if (errors.destination && showValidation) {
+                setErrors(prev => ({ ...prev, destination: '' }));
+              }
+            }}
+            onSelect={(location) => {
+              console.log('Selected destination:', location);
+              setFormData(prev => ({
+                ...prev,
+                destination: `${location.name}, ${location.country}`,
+                destinationCoords: { lat: location.latitude, lng: location.longitude }
+              }));
+            }}
+            error={showValidation ? errors.destination : ''}
+            touched={touched.destination && showValidation}
+            required
+          />
         </div>
 
         <button type="button" className={`mt-4 flex items-center font-medium ${darkMode ? 'text-blue-400 hover:text-blue-300' : 'text-blue-600 hover:text-blue-700'}`}>
